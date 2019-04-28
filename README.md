@@ -57,3 +57,21 @@ plt.plot(range(1, len(ppn.errors_)+1), ppn.errors_, marker='o')
 plt.xlabel('Iterations')
 plt.ylabel('Misclassifications')
 plt.show()
+# versicolor and virginica
+y2 = df.iloc[50:150, 4].values
+y2 = np.where(y2 == 'Iris-virginica', -1, 1)
+
+# sepal width and petal width
+X2 = df.iloc[50:150, [1,3]].values
+
+ppn = Perceptron(epochs=25, eta=0.01)
+ppn.train(X2, y2)
+
+plot_decision_regions(X2, y2, clf=ppn)
+plt.show()
+
+plt.plot(range(1, len(ppn.errors_)+1), ppn.errors_, marker='o')
+plt.xlabel('Iterations')
+plt.ylabel('Misclassifications')
+plt.show()
+print('Total number of misclassifications: %d of 100' % (y2 != ppn.predict(X2)).sum())
